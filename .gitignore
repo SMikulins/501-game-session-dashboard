@@ -1,3 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local database
+backend/game.db
+
+# Env / secrets
+.env
+.env.*
+*.local
+
 # Logs
 logs
 *.log
@@ -7,10 +18,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Frontend build
+frontend/dist/
+frontend/dist-ssr/
 
 # Editor directories and files
 .vscode/*
