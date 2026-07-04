@@ -51,7 +51,10 @@ function App() {
       />
 
       {selectedSession && (
-        <SessionOverview session={selectedSession} onScoreChange={handleScoreChange} />
+        <SessionOverview
+          session={selectedSession}
+          onScoreChange={handleScoreChange}
+        />
       )}
     </main>
   );

@@ -1,4 +1,5 @@
-import PlayerCard from "../PlayerCard/PlayerCard";
+import PlayerCard from "../PlayerCard/PlayerCard"; 
+import StatusBadge from "../StatusBadge/StatusBadge";
 
 function SessionOverview({ session, onScoreChange }) {
   return (
@@ -10,7 +11,7 @@ function SessionOverview({ session, onScoreChange }) {
       </p>
 
       <p>
-        <strong>Status:</strong> {session.status}
+        <strong>Status:</strong> <StatusBadge status={session.status} />
       </p>
 
       <h3>Players</h3>
