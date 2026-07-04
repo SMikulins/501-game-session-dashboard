@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSessionById, getSessions } from "./services/api";
+import { getSessionById, getSessions, updatePlayerScore } from "./services/api";
 
 function App() {
   const [sessions, setSessions] = useState([]);
@@ -26,6 +26,17 @@ function App() {
     getSessionById(sessionId)
       .then((data) => setSelectedSession(data))
       .catch((error) => console.error(error));
+  }
+
+  async function handleScoreChange(playerId, newScore) {
+    try {
+      await updatePlayerScore(selectedSession.id, playerId, newScore);
+
+      const updatedSession = await getSessionById(selectedSession.id);
+      setSelectedSession(updatedSession);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -64,6 +75,20 @@ function App() {
             {selectedSession.players.map((player) => (
               <li key={player.id}>
                 {player.name} — Score: {player.score}
+                <button
+                  onClick={() =>
+                    handleScoreChange(player.id, player.score + 1)
+                  }
+                >
+                  +1
+                </button>
+                <button
+                  onClick={() =>
+                    handleScoreChange(player.id, player.score - 1)
+                  }
+                >
+                  -1
+                </button>
               </li>
             ))}
           </ul>
