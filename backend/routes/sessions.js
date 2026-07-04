@@ -93,4 +93,49 @@ router.patch("/:id/players/:playerId", (req, res) => {
   });
 });
 
+// POST /sessions
+router.post("/", (req, res) => {
+  const { status, videoUrl, players } = req.body;
+
+  if (!status || !Array.isArray(players)) {
+    return res.status(400).json({
+      error: "Status and players are required",
+    });
+  }
+
+  const sessionQuery = `
+    INSERT INTO sessions (status, videoUrl, createdAt)
+    VALUES (?, ?, datetime('now'))
+  `;
+
+  db.run(sessionQuery, [status, videoUrl || null], function (err) {
+    if (err) {
+      return res.status(500).json({
+        error: "Failed to create session",
+      });
+    }
+
+    const sessionId = this.lastID;
+
+    const playerQuery = `
+      INSERT INTO players (sessionId, name, score, photoUrl)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    players.forEach((player) => {
+      db.run(playerQuery, [
+        sessionId,
+        player.name,
+        player.score || 0,
+        player.photoUrl || null,
+      ]);
+    });
+
+    res.status(201).json({
+      message: "Session created successfully",
+      sessionId,
+    });
+  });
+});
+
 module.exports = router;
