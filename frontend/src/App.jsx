@@ -9,21 +9,37 @@ function App() {
   const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
-    getSessions()
-      .then((data) => {
-        setSessions(data);
-
-        if (data.length > 0) {
-          return getSessionById(data[0].id);
+    async function loadInitialData() {
+      try {
+        const sessionsData = await getSessions();
+        setSessions(sessionsData);
+  
+        if (sessionsData.length > 0) {
+          const firstSession = await getSessionById(sessionsData[0].id);
+          setSelectedSession(firstSession);
         }
-      })
-      .then((sessionData) => {
-        if (sessionData) {
-          setSelectedSession(sessionData);
-        }
-      })
-      .catch((error) => console.error(error));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    loadInitialData();
   }, []);
+  
+  useEffect(() => {
+    if (!selectedSession) return;
+  
+    const intervalId = setInterval(async () => {
+      try {
+        const updatedSession = await getSessionById(selectedSession.id);
+        setSelectedSession(updatedSession);
+      } catch (error) {
+        console.error(error);
+      }
+    }, 5000);
+  
+    return () => clearInterval(intervalId);
+  }, [selectedSession?.id]);
 
   function handleSelectSession(sessionId) {
     getSessionById(sessionId)
