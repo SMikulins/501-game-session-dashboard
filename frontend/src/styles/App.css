@@ -1,16 +1,9 @@
+@reference "tailwindcss";
+
 .dashboard {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 24px;
+  @apply grid grid-cols-1 sm:grid-cols-12 gap-4 max-w-7xl mx-auto my-10 p-10;
+}
   
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
-  
-  .panel {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.08);
-  }
+.panel {
+  @apply bg-white rounded-lg p-4 shadow-md;
+}

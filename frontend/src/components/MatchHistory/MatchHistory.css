@@ -1,21 +1,22 @@
+@reference "tailwindcss";
+
 .match-list {
-    list-style: none;
-    padding: 0;
-  }
+  @apply list-none p-0 max-sm:max-h-40 overflow-y-auto;
+}
   
-  .match-list li {
-    margin-bottom: 10px;
-  }
-  
-  .match-list button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #eef3ff;
-    transition: .2s;
-  }
-  
-  .match-list button:hover {
-    background: #dbe6ff;
-  }
+.match-list li {
+  margin-bottom: 10px;
+}
+
+.match-list button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #eef3ff;
+  transition: .2s;
+}
+
+.match-list button:hover {
+  background: #dbe6ff;
+}
