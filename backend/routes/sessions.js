@@ -3,55 +3,41 @@ const db = require("../database/database");
 
 const router = express.Router();
 
-// GET /sessions/:id
-router.get("/:id", (req, res) => {
-    const sessionId = req.params.id;
+// PATCH /sessions/:id/players/:playerId
+router.patch("/:id/players/:playerId", (req, res) => {
+    const { id, playerId } = req.params;
+    const { score } = req.body;
   
-    const sessionQuery = `
-      SELECT 
-        id,
-        status,
-        videoUrl,
-        createdAt
-      FROM sessions
-      WHERE id = ?
+    if (typeof score !== "number") {
+      return res.status(400).json({
+        error: "Score must be a number",
+      });
+    }
+  
+    const query = `
+      UPDATE players
+      SET score = ?
+      WHERE id = ? AND sessionId = ?
     `;
   
-    const playersQuery = `
-      SELECT 
-        id,
-        sessionId,
-        name,
-        score,
-        photoUrl
-      FROM players
-      WHERE sessionId = ?
-    `;
-  
-    db.get(sessionQuery, [sessionId], (err, session) => {
+    db.run(query, [score, playerId, id], function (err) {
       if (err) {
         return res.status(500).json({
-          error: "Failed to fetch session",
+          error: "Failed to update score",
         });
       }
   
-      if (!session) {
+      if (this.changes === 0) {
         return res.status(404).json({
-          error: "Session not found",
+          error: "Player not found for this session",
         });
       }
   
-      db.all(playersQuery, [sessionId], (err, players) => {
-        if (err) {
-          return res.status(500).json({
-            error: "Failed to fetch players",
-          });
-        }
-  
-        res.json({
-          ...session,
-          players,
-        });
+      res.json({
+        message: "Score updated successfully",
+        playerId: Number(playerId),
+        sessionId: Number(id),
+        score,
       });
     });
   });
