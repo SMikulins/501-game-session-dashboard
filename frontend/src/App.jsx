@@ -66,16 +66,16 @@ function App() {
   }
 
   if (loading) {
-    return <p style={{ textAlign: "center" }}>Loading dashboard...</p>;
+    return <p>Loading dashboard...</p>;
   }
   
   if (error) {
-    return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
+    return <p className="text-red-500">{error}</p>;
   }
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>
+      <h1>
         Game Session Dashboard
       </h1>
   
