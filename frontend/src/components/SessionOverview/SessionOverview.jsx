@@ -16,7 +16,7 @@ function SessionOverview({ session, onScoreChange }) {
 
       <h3>Players</h3>
 
-      <ul>
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {session.players.map((player) => (
           <PlayerCard
             key={player.id}

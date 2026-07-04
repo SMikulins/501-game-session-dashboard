@@ -1,0 +1,45 @@
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    margin-bottom: 12px;
+  }
+  
+  .player-card img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e5e7eb;
+  }
+  
+  .player-info {
+    flex: 1;
+  }
+  
+  .player-info h4 {
+    margin: 0 0 6px;
+  }
+  
+  .player-score {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  
+  .score-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .score-actions button {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: #111827;
+    color: white;
+  }
