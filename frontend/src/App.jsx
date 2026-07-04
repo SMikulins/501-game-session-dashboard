@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getSessionById, getSessions, updatePlayerScore } from "./services/api";
 import MatchHistory from "./components/MatchHistory/MatchHistory";
 import SessionOverview from "./components/SessionOverview/SessionOverview";
+import "./styles/App.css";
 
 function App() {
   const [sessions, setSessions] = useState([]);
@@ -42,21 +43,31 @@ function App() {
   }
 
   return (
-    <main>
-      <h1>Game Session Dashboard</h1>
-
-      <MatchHistory
-        sessions={sessions}
-        onSelect={handleSelectSession}
-      />
-
-      {selectedSession && (
-        <SessionOverview
-          session={selectedSession}
-          onScoreChange={handleScoreChange}
-        />
-      )}
-    </main>
+    <>
+      <h1 style={{ textAlign: "center" }}>
+        Game Session Dashboard
+      </h1>
+  
+      <div className="dashboard">
+  
+        <div className="panel">
+          <MatchHistory
+            sessions={sessions}
+            onSelect={handleSelectSession}
+          />
+        </div>
+  
+        <div className="panel">
+          {selectedSession && (
+            <SessionOverview
+              session={selectedSession}
+              onScoreChange={handleScoreChange}
+            />
+          )}
+        </div>
+  
+      </div>
+    </>
   );
 }
 
