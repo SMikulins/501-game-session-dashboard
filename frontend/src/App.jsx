@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSessionById, getSessions, updatePlayerScore } from "./services/api";
 import MatchHistory from "./components/MatchHistory/MatchHistory";
+import PlayerCard from "./components/PlayerCard/PlayerCard";
 
 function App() {
   const [sessions, setSessions] = useState([]);
@@ -65,23 +66,7 @@ function App() {
 
           <ul>
             {selectedSession.players.map((player) => (
-              <li key={player.id}>
-                {player.name} — Score: {player.score}
-                <button
-                  onClick={() =>
-                    handleScoreChange(player.id, player.score + 1)
-                  }
-                >
-                  +1
-                </button>
-                <button
-                  onClick={() =>
-                    handleScoreChange(player.id, player.score - 1)
-                  }
-                >
-                  -1
-                </button>
-              </li>
+              <PlayerCard key={player.id} player={player} onScoreChange={handleScoreChange} />
             ))}
           </ul>
         </section>
