@@ -1,26 +1,74 @@
 import { useEffect, useState } from "react";
-import { getSessions } from "./services/api";
+import { getSessionById, getSessions } from "./services/api";
 
 function App() {
   const [sessions, setSessions] = useState([]);
+  const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
     getSessions()
-      .then((data) => setSessions(data))
+      .then((data) => {
+        setSessions(data);
+
+        if (data.length > 0) {
+          return getSessionById(data[0].id);
+        }
+      })
+      .then((sessionData) => {
+        if (sessionData) {
+          setSelectedSession(sessionData);
+        }
+      })
       .catch((error) => console.error(error));
   }, []);
+
+  function handleSelectSession(sessionId) {
+    getSessionById(sessionId)
+      .then((data) => setSelectedSession(data))
+      .catch((error) => console.error(error));
+  }
 
   return (
     <main>
       <h1>Game Session Dashboard</h1>
 
-      <ul>
-        {sessions.map((session) => (
-          <li key={session.id}>
-            Session #{session.id} — {session.status}
-          </li>
-        ))}
-      </ul>
+      <section>
+        <h2>Match History</h2>
+
+        <ul>
+          {sessions.map((session) => (
+            <li key={session.id}>
+              <button onClick={() => handleSelectSession(session.id)}>
+                Session #{session.id} — {session.status}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {selectedSession && (
+        <section>
+          <h2>Session Overview</h2>
+
+          <p>
+            <strong>Session ID:</strong> {selectedSession.id}
+          </p>
+
+          <p>
+            <strong>Status:</strong> {selectedSession.status}
+          </p>
+
+          <h3>Players</h3>
+
+          <ul>
+            {selectedSession.players.map((player) => (
+              <li key={player.id}>
+                {player.name} — Score: {player.score}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
