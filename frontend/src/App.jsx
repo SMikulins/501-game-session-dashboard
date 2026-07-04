@@ -7,10 +7,14 @@ import "./styles/App.css";
 function App() {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadInitialData() {
       try {
+        setLoading(true);
+  
         const sessionsData = await getSessions();
         setSessions(sessionsData);
   
@@ -19,7 +23,10 @@ function App() {
           setSelectedSession(firstSession);
         }
       } catch (error) {
+        setError("Something went wrong while loading sessions.");
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
   
@@ -58,6 +65,14 @@ function App() {
     }
   }
 
+  if (loading) {
+    return <p style={{ textAlign: "center" }}>Loading dashboard...</p>;
+  }
+  
+  if (error) {
+    return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
+  }
+
   return (
     <>
       <h1 style={{ textAlign: "center" }}>
@@ -66,14 +81,14 @@ function App() {
   
       <div className="dashboard">
   
-        <div className="panel">
+        <div className="panel col-span-1 sm:col-span-4">
           <MatchHistory
             sessions={sessions}
             onSelect={handleSelectSession}
           />
         </div>
   
-        <div className="panel">
+        <div className="panel col-span-1 sm:col-span-8">
           {selectedSession && (
             <SessionOverview
               session={selectedSession}
