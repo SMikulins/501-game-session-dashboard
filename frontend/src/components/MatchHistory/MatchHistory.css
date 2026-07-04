@@ -1,0 +1,21 @@
+.match-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .match-list li {
+    margin-bottom: 10px;
+  }
+  
+  .match-list button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #eef3ff;
+    transition: .2s;
+  }
+  
+  .match-list button:hover {
+    background: #dbe6ff;
+  }
