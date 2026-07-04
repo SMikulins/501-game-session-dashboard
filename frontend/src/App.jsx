@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSessionById, getSessions, updatePlayerScore } from "./services/api";
+import MatchHistory from "./components/MatchHistory/MatchHistory";
 
 function App() {
   const [sessions, setSessions] = useState([]);
@@ -43,19 +44,10 @@ function App() {
     <main>
       <h1>Game Session Dashboard</h1>
 
-      <section>
-        <h2>Match History</h2>
-
-        <ul>
-          {sessions.map((session) => (
-            <li key={session.id}>
-              <button onClick={() => handleSelectSession(session.id)}>
-                Session #{session.id} — {session.status}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <MatchHistory
+        sessions={sessions}
+        onSelect={handleSelectSession}
+      />
 
       {selectedSession && (
         <section>
