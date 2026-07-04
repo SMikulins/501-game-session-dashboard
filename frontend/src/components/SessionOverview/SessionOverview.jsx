@@ -1,5 +1,6 @@
 import PlayerCard from "../PlayerCard/PlayerCard"; 
 import StatusBadge from "../StatusBadge/StatusBadge";
+import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
 function SessionOverview({ session, onScoreChange }) {
   return (
@@ -25,6 +26,8 @@ function SessionOverview({ session, onScoreChange }) {
           />
         ))}
       </ul>
+
+      <VideoPlayer videoUrl={session.videoUrl} />
     </section>
   );
 }
