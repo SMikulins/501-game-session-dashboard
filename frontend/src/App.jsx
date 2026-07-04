@@ -75,28 +75,28 @@ function App() {
 
   return (
     <>
-      <h1>
-        Game Session Dashboard
-      </h1>
-  
-      <div className="dashboard">
-  
-        <div className="panel col-span-1 sm:col-span-4">
-          <MatchHistory
-            sessions={sessions}
-            onSelect={handleSelectSession}
-          />
-        </div>
-  
-        <div className="panel col-span-1 sm:col-span-8">
-          {selectedSession && (
-            <SessionOverview
-              session={selectedSession}
-              onScoreChange={handleScoreChange}
+      <div className="flex flex-col gap-10 max-w-7xl mx-auto px-6 md:px-10 py-10">
+        <h1 className="text-3xl font-bold">
+          Game Session Dashboard
+        </h1>
+    
+        <div className="dashboard">
+          <div className="panel col-span-1 sm:col-span-4">
+            <MatchHistory
+              sessions={sessions}
+              onSelect={handleSelectSession}
             />
-          )}
+          </div>
+    
+          <div className="panel col-span-1 sm:col-span-8">
+            {selectedSession && (
+              <SessionOverview
+                session={selectedSession}
+                onScoreChange={handleScoreChange}
+              />
+            )}
+          </div>
         </div>
-  
       </div>
     </>
   );
