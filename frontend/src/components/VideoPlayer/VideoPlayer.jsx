@@ -7,7 +7,7 @@ function VideoPlayer({ videoUrl }) {
     <div>
       <h3>Game Video</h3>
 
-      <video key={videoUrl} width="100%" controls>
+      <video className="w-full h-full object-cover aspect-video rounded-lg" key={videoUrl} width="100%" controls>
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
