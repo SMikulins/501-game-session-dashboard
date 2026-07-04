@@ -1,45 +1,30 @@
+@reference "tailwindcss";
+
 .player-card {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #ffffff;
-    margin-bottom: 12px;
-  }
+  @apply relative flex flex-col gap-4 p-4 border border-gray-200 rounded-lg;
+}
   
-  .player-card img {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #e5e7eb;
-  }
-  
-  .player-info {
-    flex: 1;
-  }
-  
-  .player-info h4 {
-    margin: 0 0 6px;
-  }
-  
-  .player-score {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 10px;
-  }
-  
-  .score-actions {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .score-actions button {
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    background: #111827;
-    color: white;
-  }
+.player-card img {
+  @apply w-full h-full aspect-square object-cover bg-gray-200 mx-auto rounded-lg overflow-hidden;
+}
+
+.player-info {
+  @apply flex flex-col gap-2 relative bg-white/30 backdrop-blur-md mt-auto;
+}
+
+.player-info h4 {
+  @apply text-xl font-bold;
+}
+
+.player-score {
+  @apply text-lg;
+}
+
+.score-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.score-actions button {
+  @apply bg-gray-100 hover:bg-gray-200 active:bg-gray-300 rounded-md p-2 h-10 w-10 flex items-center justify-center;
+}

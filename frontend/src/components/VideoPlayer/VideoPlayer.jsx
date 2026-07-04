@@ -4,7 +4,7 @@ function VideoPlayer({ videoUrl }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <h3>Game Video</h3>
 
       <video className="w-full h-full object-cover aspect-video rounded-lg" key={videoUrl} width="100%" controls>
