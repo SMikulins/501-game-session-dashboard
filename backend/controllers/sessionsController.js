@@ -92,9 +92,9 @@ const updatePlayerScore = (req, res) => {
   const { id, playerId } = req.params;
   const { score } = req.body;
 
-  if (typeof score !== "number") {
+  if (typeof score !== "number" || score < 0) {
     return res.status(400).json({
-      error: "Score must be a number",
+      error: "Score must be a non-negative number",
     });
   }
 
