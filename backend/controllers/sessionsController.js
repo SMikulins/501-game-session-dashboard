@@ -49,6 +49,45 @@ const getSessionById = (req, res) => {
   );
 };
 
+const updateSession = (req, res) => {
+  const sessionId = req.params.id;
+  const { status } = req.body;
+
+  const allowedStatuses = ["active", "completed"];
+
+  if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({
+      error: "Status must be 'active' or 'completed'",
+    });
+  }
+
+  const query = `
+    UPDATE sessions
+    SET status = ?
+    WHERE id = ?
+  `;
+
+  db.run(query, [status, sessionId], function (err) {
+    if (err) {
+      return res.status(500).json({
+        error: "Failed to update session",
+      });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({
+        error: "Session not found",
+      });
+    }
+
+    res.json({
+      message: "Session updated successfully",
+      sessionId: Number(sessionId),
+      status,
+    });
+  });
+};
+
 const updatePlayerScore = (req, res) => {
   const { id, playerId } = req.params;
   const { score } = req.body;
@@ -135,5 +174,6 @@ module.exports = {
   getSessions,
   getSessionById,
   createSession,
+  updateSession,
   updatePlayerScore,
 };

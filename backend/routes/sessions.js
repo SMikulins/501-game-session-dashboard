@@ -10,6 +10,8 @@ router.get("/:id", controller.getSessionById);
 
 router.post("/", controller.createSession);
 
+router.patch("/:id", controller.updateSession);
+
 router.patch("/:id/players/:playerId", controller.updatePlayerScore);
 
 module.exports = router;
